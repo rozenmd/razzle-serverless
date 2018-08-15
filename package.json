@@ -1,0 +1,20 @@
+{
+  "name": "my-razzle-app",
+  "version": "2.0.0-alpha.8",
+  "license": "MIT",
+  "scripts": {
+    "start": "razzle start",
+    "build":
+      "PUBLIC_PATH=https://my-app-12345.s3-ap-southeast-2.amazonaws.com/public/ razzle build && aws s3 sync \"./build/public/\" s3://my-app-12345/public && aws s3 sync \"./build/static/\" s3://my-app-12345/static && cd ./build && zip -r ./server.zip ./server.*",
+    "test": "razzle test --env=jsdom",
+    "start:prod": "NODE_ENV=production node build/server.js"
+  },
+  "dependencies": {
+    "aws-serverless-express": "^3.2.0",
+    "express": "4.16.3",
+    "razzle": "2.4.0",
+    "react": "16.4.2",
+    "react-dom": "16.4.2",
+    "react-router-dom": "4.3.1"
+  }
+}
