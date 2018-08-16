@@ -5,7 +5,6 @@ module.exports = {
 
     if (target === 'node' && !dev) {
       appConfig.externals = []
-      appConfig.output.publicPath = `${process.env.PUBLIC_PATH}`
     }
 
     return appConfig
