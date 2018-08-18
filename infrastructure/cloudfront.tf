@@ -25,6 +25,21 @@ resource "aws_cloudfront_distribution" "site" {
     origin_path = "/${aws_api_gateway_deployment.ssr_deployment.stage_name}"
   }
 
+  origin {
+   origin_id = "api"
+
+   domain_name = "${aws_api_gateway_rest_api.graphql_api.id}.execute-api.${var.aws_region}.amazonaws.com"
+
+   custom_origin_config {
+     http_port              = "80"
+     https_port             = "443"
+     origin_protocol_policy = "match-viewer"
+     origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2"]
+   }
+
+   origin_path = "/${aws_api_gateway_deployment.graphql_api_deployment.stage_name}"
+ }
+
   enabled             = true
   is_ipv6_enabled     = true
   comment             = ""
@@ -61,6 +76,31 @@ resource "aws_cloudfront_distribution" "site" {
     max_ttl                = 0
     min_ttl                = 0
     viewer_protocol_policy = "https-only"
+
+    forwarded_values {
+      query_string = true
+
+      cookies {
+        forward = "all"
+      }
+
+      headers = [
+        "Accept",
+        "Authorization",
+        "Origin",
+      ]
+    }
+  }
+  ordered_cache_behavior {
+    path_pattern           = "graphql"
+    allowed_methods        = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+    cached_methods         = ["GET", "HEAD"]
+    target_origin_id       = "api"
+    default_ttl            = 0
+    max_ttl                = 0
+    min_ttl                = 0
+    viewer_protocol_policy = "https-only"
+    compress               = true
 
     forwarded_values {
       query_string = true

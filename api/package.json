@@ -1,0 +1,34 @@
+{
+  "name": "graphql_api_lambda",
+  "version": "1.0.0",
+  "description": "GraphQL server to be run on AWS Lambda",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env BABEL_DISABLE_CACHE=1 node -r babel-register local.js",
+    "build":
+      "cross-env BABEL_DISABLE_CACHE=1 webpack --config=webpack.config.babel.js --env=production"
+  },
+  "keywords": [],
+  "author": "Max Rozen - @RozenMD",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "graphql": "^0.13.2",
+    "graphql-tag": "^2.9.2",
+    "graphql-tools": "^3.1.1",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.5"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-inline-import": "^3.0.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "cross-env": "^5.2.0",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0",
+    "zip-webpack-plugin": "^3.0.0"
+  }
+}
